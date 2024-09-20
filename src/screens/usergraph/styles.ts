@@ -60,12 +60,10 @@ export const styles = StyleSheet.create({
   },
 
   chart: {
-    marginTop: metrics.spacing.large,
-    //flex: 1,
+    flex: 1,
     // backgroundColor: '#fff',
     height: 200,
     //width: '90%',
-
   },
 
   table: {
@@ -73,21 +71,13 @@ export const styles = StyleSheet.create({
     borderRadius: 15,
   },
   titleTable: {
-    textAlign: 'center',
+    textAlign: 'right',
     color: '#9C9B9B',
   },
   textTable: {
     textAlign: 'center',
     color: '#9C9B9B',
   },
-  text: { width: 50, textAlign: 'center', },
-  rowButons: {
-    flexDirection: "row",
-    marginLeft: 20,
-    justifyContent: 'space-evenly'
-  },
-  head: { height: 30, width: 500, backgroundColor: '#f1f8ff' },
-  dataWrapper: { marginTop: -1 },
 
 
 });

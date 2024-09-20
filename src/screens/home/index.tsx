@@ -25,8 +25,7 @@ import { Products } from '../../database/products';
 import { Transactions } from '../../database/transactions';
 import { Users } from '../../database/users';
 
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
 
 export const HomeScreen = () => {
   const [tag, setTag] = useState<string>('');
@@ -106,44 +105,21 @@ export const HomeScreen = () => {
     );
   }
 
-  var tableHead = ['Head', 'Head2', 'Head3', 'Head4', 'Head5', 'Head6', 'Head7', 'Head8', 'Head9'];
-  var tableData = [40, 60, 80, 100, 120, 140, 160, 180, 200];
 
-  //console.log(Products.at(0).id);
 
   return (
     <View style={styles.container}>
-
-      <Text onPress={navigateToAboutScreen} style={styles.about}>
-        Sobre
-      </Text>
-      <Text onPress={navigateToProductsScreen} style={styles.about}>
-        Produtos
-      </Text>
-      <Text onPress={navigateToUsersScreen} style={styles.about}>
-        Usuarios
-      </Text>
-      {/* <View style={styles.inputArea}>
-        <TextInput
-          onChangeText={setTag}
-          placeholder="Digite a tag..."
-          value={tag}
-          style={styles.input}
-          onSubmitEditing={() => addTagToStorage(tag)}
-        />
-        <TouchableOpacity onPress={onPressAddButton} style={styles.addButton}>
-          <Text>Add</Text>
-        </TouchableOpacity>
-      </View> */}
-      {/* <FlatList
-        contentContainerStyle={styles.listArea}
-        data={videos}
-        ItemSeparatorComponent={handleListSeparator}
-        keyExtractor={item => item.id}
-        renderItem={({ item }) => <VideoItem {...item} />}
-        showsVerticalScrollIndicator={false}
-        ListHeaderComponent={renderTags()}r
-      /> */}
+      <View style={styles.rowButons}>
+        <Text onPress={navigateToProductsScreen} style={styles.about}>
+          Produtos
+        </Text>
+        <Text onPress={navigateToUsersScreen} style={styles.about}>
+          Usuarios
+        </Text>
+        <Text onPress={navigateToAboutScreen} style={styles.about}>
+          Sobre
+        </Text>
+      </View>
 
       <View>
         <ScrollView>
@@ -154,21 +130,59 @@ export const HomeScreen = () => {
             data={{ dataSets: [{ label: "demo", values: [{ y: 1 }, { y: 2 }, { y: 1 }] }] }}
           />
 
+          <ScrollView horizontal={true}>
+            <View>
+              <Table borderStyle={{ borderWidth: 3, borderColor: '#fff' }} style={styles.table}>
+                <Row data={["Data", "Usuário", "Pontos", "Produto", "Transação", "empresa"]} style={styles.head} textStyle={styles.titleTable} />
+              </Table>
 
-          <Table borderStyle={{ borderWidth: 3, borderColor: '#fff' }} style={styles.table}>
-            <TableWrapper style={{ flexDirection: 'row' }}>
-              <Col data={["teste"]} textStyle={styles.titleTable}></Col>
-              <Col data={["teste teste"]} textStyle={styles.textTable}></Col>
-            </TableWrapper>
-            <TableWrapper style={{ flexDirection: 'row' }}>
-              <Col data={["teste"]} textStyle={styles.titleTable}></Col>
-              <Col data={["teste teste"]} textStyle={styles.textTable}></Col>
-            </TableWrapper>
-            <TableWrapper style={{ flexDirection: 'row' }}>
-              <Col data={["teste"]} textStyle={styles.titleTable}></Col>
-              <Col data={["teste teste"]} textStyle={styles.textTable}></Col>
-            </TableWrapper>
-          </Table>
+              <ScrollView style={styles.dataWrapper}>
+                <Table borderStyle={{ borderWidth: 1, borderColor: '#C1C0B9' }}>
+                  <TableWrapper style={{ flexDirection: 'row' }}>
+                    <Col data={["teste1"]} textStyle={styles.text}></Col>
+                    <Col data={["teste2"]} textStyle={styles.text}></Col>
+                    <Col data={["teste3"]} textStyle={styles.text}></Col>
+                    <Col data={["teste4"]} textStyle={styles.text}></Col>
+                    <Col data={["teste5"]} textStyle={styles.text}></Col>
+                    <Col data={["teste6"]} textStyle={styles.text}></Col>
+                  </TableWrapper>
+                  <TableWrapper style={{ flexDirection: 'row' }}>
+                    <Col data={["teste1"]} textStyle={styles.text}></Col>
+                    <Col data={["teste2"]} textStyle={styles.text}></Col>
+                    <Col data={["teste3"]} textStyle={styles.text}></Col>
+                    <Col data={["teste4"]} textStyle={styles.text}></Col>
+                    <Col data={["teste5"]} textStyle={styles.text}></Col>
+                    <Col data={["teste6"]} textStyle={styles.text}></Col>
+                  </TableWrapper>
+                  <TableWrapper style={{ flexDirection: 'row' }}>
+                    <Col data={["teste1"]} textStyle={styles.text}></Col>
+                    <Col data={["teste2"]} textStyle={styles.text}></Col>
+                    <Col data={["teste3"]} textStyle={styles.text}></Col>
+                    <Col data={["teste4"]} textStyle={styles.text}></Col>
+                    <Col data={["teste5"]} textStyle={styles.text}></Col>
+                    <Col data={["teste6"]} textStyle={styles.text}></Col>
+                  </TableWrapper>
+                  <TableWrapper style={{ flexDirection: 'row' }}>
+                    <Col data={["teste1"]} textStyle={styles.text}></Col>
+                    <Col data={["teste2"]} textStyle={styles.text}></Col>
+                    <Col data={["teste3"]} textStyle={styles.text}></Col>
+                    <Col data={["teste4"]} textStyle={styles.text}></Col>
+                    <Col data={["teste5"]} textStyle={styles.text}></Col>
+                    <Col data={["teste6"]} textStyle={styles.text}></Col>
+                  </TableWrapper>
+                  <TableWrapper style={{ flexDirection: 'row' }}>
+                    <Col data={["teste1"]} textStyle={styles.text}></Col>
+                    <Col data={["teste2"]} textStyle={styles.text}></Col>
+                    <Col data={["teste3"]} textStyle={styles.text}></Col>
+                    <Col data={["teste4"]} textStyle={styles.text}></Col>
+                    <Col data={["teste5"]} textStyle={styles.text}></Col>
+                    <Col data={["teste6"]} textStyle={styles.text}></Col>
+                  </TableWrapper>
+
+                </Table>
+              </ScrollView>
+            </View>
+          </ScrollView>
 
           {Products.map((item) => {
             return (

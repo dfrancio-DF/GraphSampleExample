@@ -6,7 +6,8 @@ export enum RootRoutes {
   HOME = 'Home',
   PLAYER = 'Player',
   PRODUCTS = 'Products',
-  USERS = 'Users'
+  USERS = 'Users',
+  USER_GRAPH = 'UserGraph'
 }
 
 export type RootStackParamList = {
@@ -15,6 +16,7 @@ export type RootStackParamList = {
   Player: { videoID: string };
   Products: undefined;
   Users: undefined;
+  UserGraph: { userId: string };
 };
 
 export type PlayerNavigationProp = NativeStackNavigationProp<
@@ -26,15 +28,21 @@ export type PlayerRouteProp = RouteProp<RootStackParamList, RootRoutes.PLAYER>;
 
 export type AboutNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
-  RootRoutes.ABOUT,
+  RootRoutes.ABOUT
 >;
 
 export type ProductsNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
-  RootRoutes.PRODUCTS,
+  RootRoutes.PRODUCTS
 >;
 
 export type UsersNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
-  RootRoutes.USERS,
+  RootRoutes.USERS
 >;
+
+export type UserGraphNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  RootRoutes.USER_GRAPH
+>;
+
