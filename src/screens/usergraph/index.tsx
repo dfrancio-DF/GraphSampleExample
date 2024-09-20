@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ScrollView, Text, View, TouchableOpacity } from 'react-native';
 import { styles } from './styles';
-import { HorizontalBarChart, LineChart } from 'react-native-charts-wrapper';
+import { LineChart } from 'react-native-charts-wrapper';
 import moment from 'moment';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 import { Users } from '../../database/users';
 import { Transactions } from '../../database/transactions';
@@ -17,27 +18,80 @@ export const UserGraphScreen = () => {
   const { userID } = route.params;
   console.log(userID);
 
+
+  var UsersData = [];
+  for (var i = 0; i < Users.length; i++) {
+    if (Users[i].tipo === "cliente") {
+      var obj = { label: Users[i].nome, value: Users[i].id };
+      UsersData.push(obj);
+    }
+  }
+
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(userID);
+  // const [items, setItems] = useState([
+  //   { label: 'Apple', value: 'apple' },
+  //   { label: 'Banana', value: 'banana' },
+  //   { label: 'Pear', value: 'pear' },
+  // ]);
+  const [items, setItems] = useState(UsersData);
+
+
+
   var measuresData = [];
 
   var userName = Users.find(item => item.id === userID)?.nome;
   console.log(userName);
 
-  for (var i = 0; i < Transactions.length; i++) {
-    if (Transactions[i].usuario_id === userID) {
-      //console.log(Transactions[i].pontos_movimentados);
-      //console.log(Transactions[i].data);
-      //console.log(moment(Transactions[i].data.split(' ')[0].replace(/-/g, '/'), 'YYYY/MM/DD').unix('X'));
-      //console.log("-----------------");
-      var obj = { y: Transactions[i].pontos_movimentados, x: moment(Transactions[i].data.split(' ')[0].replace(/-/g, '/'), 'YYYY/MM/DD').unix('X') };
-      measuresData.push(obj);
+  drawGraph(value);
+  // for (var i = 0; i < Transactions.length; i++) {
+  //   if (Transactions[i].usuario_id === userID) {
+  //     //console.log(Transactions[i].pontos_movimentados);
+  //     //console.log(Transactions[i].data);
+  //     //console.log(moment(Transactions[i].data.split(' ')[0].replace(/-/g, '/'), 'YYYY/MM/DD').unix('X'));
+  //     //console.log("-----------------");
+  //     var obj = { y: Transactions[i].pontos_movimentados, x: moment(Transactions[i].data.split(' ')[0].replace(/-/g, '/'), 'YYYY/MM/DD').unix('X') };
+  //     measuresData.push(obj);
+  //   }
+  // }
+  // console.log(measuresData);
+
+  function drawGraph(userID) {
+    for (var i = 0; i < Transactions.length; i++) {
+      if (Transactions[i].usuario_id === userID) {
+        //console.log(Transactions[i].pontos_movimentados);
+        //console.log(Transactions[i].data);
+        //console.log(moment(Transactions[i].data.split(' ')[0].replace(/-/g, '/'), 'YYYY/MM/DD').unix('X'));
+        //console.log("-----------------");
+        var obj = { y: Transactions[i].pontos_movimentados, x: moment(Transactions[i].data.split(' ')[0].replace(/-/g, '/'), 'YYYY/MM/DD').unix('X') };
+        measuresData.push(obj);
+      }
     }
+    console.log(measuresData);
+
   }
-  console.log(measuresData);
 
 
   return (
 
     < View >
+      <DropDownPicker
+        open={open}
+        value={value}
+        items={items}
+        setOpen={setOpen}
+        setValue={setValue}
+        setItems={setItems}
+        placeholder={'Escolha um cliente'}
+      />
+      <View style={{
+        //flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}>
+        <Text>Chosen fruit: {value === null ? 'none' : value}</Text>
+      </View>
+
       <ScrollView>
         <LineChart style={styles.chart}
           data={{
