@@ -7,11 +7,11 @@
 #define TIMEOUT_SECONDS 600
 #define TEXT_TO_LOOK_FOR @"Welcome to React"
 
-@interface youtubeSearchApiExampleTests : XCTestCase
+@interface GraphSampleTests : XCTestCase
 
 @end
 
-@implementation youtubeSearchApiExampleTests
+@implementation GraphSampleTests
 
 - (BOOL)findSubviewInView:(UIView *)view matching:(BOOL (^)(UIView *view))test
 {

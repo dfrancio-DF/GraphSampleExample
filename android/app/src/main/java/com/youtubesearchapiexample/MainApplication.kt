@@ -1,4 +1,4 @@
-package com.youtubesearchapiexample
+package com.graphsample
 
 import android.app.Application
 import com.facebook.react.PackageList

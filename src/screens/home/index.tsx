@@ -18,6 +18,8 @@ import { AboutNavigationProp, RootRoutes, ProductsNavigationProp, UsersNavigatio
 
 import { HorizontalBarChart, LineChart } from 'react-native-charts-wrapper';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
+import DropDownPicker from 'react-native-dropdown-picker';
+
 
 import { Products } from '../../database/products';
 import { Transactions } from '../../database/transactions';
@@ -25,9 +27,6 @@ import { Users } from '../../database/users';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
-
-
 
 export const HomeScreen = () => {
   const [tag, setTag] = useState<string>('');
@@ -37,6 +36,13 @@ export const HomeScreen = () => {
   const { fetchVideosByTag, hasErrorFetchingVideos, isFetchingVideos, videos } =
     useVideo();
 
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+  const [items, setItems] = useState([
+    { label: 'Apple', value: 'apple' },
+    { label: 'Banana', value: 'banana' },
+    { label: 'Pear', value: 'pear' },
+  ]);
 
 
   useEffect(() => {
@@ -107,6 +113,7 @@ export const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
+
       <Text onPress={navigateToAboutScreen} style={styles.about}>
         Sobre
       </Text>
@@ -135,12 +142,11 @@ export const HomeScreen = () => {
         keyExtractor={item => item.id}
         renderItem={({ item }) => <VideoItem {...item} />}
         showsVerticalScrollIndicator={false}
-        ListHeaderComponent={renderTags()}
+        ListHeaderComponent={renderTags()}r
       /> */}
 
       <View>
         <ScrollView>
-
           <LineChart style={styles.chart}
             data={{ dataSets: [{ label: "demo", values: [{ y: 1 }, { y: 2 }, { y: 1 }] }] }}
           />
@@ -192,7 +198,6 @@ export const HomeScreen = () => {
 
 
     </View >
-
   );
 };
 
