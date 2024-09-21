@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ScrollView, Text, View, TouchableOpacity } from 'react-native';
+import { ScrollView, Text, View, TouchableOpacity, processColor } from 'react-native';
 import { styles } from './styles';
 import { LineChart } from 'react-native-charts-wrapper';
 import moment from 'moment';
@@ -98,8 +98,13 @@ export const UserGraphScreen = () => {
             dataSets: [{
               values: measuresData,
               label: `Pontuação de ${userName}`,
+              config: {
+                color: processColor('red'),
+                lineWidth: 2,
+                valueTextSize: 9,
+                valueTextColor: processColor('red'),
+              },
             }],
-
           }}
           chartDescription={{
             text: '',
