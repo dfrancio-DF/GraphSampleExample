@@ -4,8 +4,6 @@ import {
   FlatList,
   Keyboard,
   Text,
-  TextInput,
-  TouchableOpacity,
   View,
   ScrollView
 } from 'react-native';
@@ -18,8 +16,6 @@ import { AboutNavigationProp, RootRoutes, ProductsNavigationProp, UsersNavigatio
 
 import { HorizontalBarChart, LineChart } from 'react-native-charts-wrapper';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
-import DropDownPicker from 'react-native-dropdown-picker';
-
 
 import { Products } from '../../database/products';
 import { Transactions } from '../../database/transactions';
@@ -35,19 +31,35 @@ export const HomeScreen = () => {
   const { fetchVideosByTag, hasErrorFetchingVideos, isFetchingVideos, videos } =
     useVideo();
 
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
-  const [items, setItems] = useState([
-    { label: 'Apple', value: 'apple' },
-    { label: 'Banana', value: 'banana' },
-    { label: 'Pear', value: 'pear' },
-  ]);
 
+  const [tableItems, setTableItems] = useState([]);
 
   useEffect(() => {
-    //etchVideosByTag(tags[0]);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    mountTable();
   }, []);
+
+  function mountTable() {
+    //["Data", "Usuário", "Pontos", "Produto", "Transação", "empresa"]}
+    var tableData = [];
+    for (var i = 0; i < Transactions.length; i++) {
+      var obj = {
+        data: Transactions[i].data,
+        usuario: Users.find(item => item.id === Transactions[i].usuario_id)?.nome,
+        pontos: Transactions[i].pontos_movimentados,
+        produto: Products.find(item => item.id === Transactions[i].produto_id)?.nome,
+        transacao: Transactions[i].tipo,
+        empresa: Users.find(item => item.id === Transactions[i].empresa_id)?.nome,
+      }
+      //      console.log(obj);
+      tableData.push(obj);
+    }
+    setTableItems(tableData);
+    console.log("teste");
+    console.log(tableItems);
+
+  }
+
+  console.log(tableItems);
 
   function navigateToAboutScreen() {
     navigation.navigate(RootRoutes.ABOUT);
@@ -105,7 +117,7 @@ export const HomeScreen = () => {
     );
   }
 
-
+  console.log(tableItems);
 
   return (
     <View style={styles.container}>
@@ -138,77 +150,54 @@ export const HomeScreen = () => {
 
               <ScrollView style={styles.dataWrapper}>
                 <Table borderStyle={{ borderWidth: 1, borderColor: '#C1C0B9' }}>
-                  <TableWrapper style={{ flexDirection: 'row' }}>
-                    <Col data={["teste1"]} textStyle={styles.text}></Col>
-                    <Col data={["teste2"]} textStyle={styles.text}></Col>
-                    <Col data={["teste3"]} textStyle={styles.text}></Col>
-                    <Col data={["teste4"]} textStyle={styles.text}></Col>
-                    <Col data={["teste5"]} textStyle={styles.text}></Col>
-                    <Col data={["teste6"]} textStyle={styles.text}></Col>
-                  </TableWrapper>
-                  <TableWrapper style={{ flexDirection: 'row' }}>
-                    <Col data={["teste1"]} textStyle={styles.text}></Col>
-                    <Col data={["teste2"]} textStyle={styles.text}></Col>
-                    <Col data={["teste3"]} textStyle={styles.text}></Col>
-                    <Col data={["teste4"]} textStyle={styles.text}></Col>
-                    <Col data={["teste5"]} textStyle={styles.text}></Col>
-                    <Col data={["teste6"]} textStyle={styles.text}></Col>
-                  </TableWrapper>
-                  <TableWrapper style={{ flexDirection: 'row' }}>
-                    <Col data={["teste1"]} textStyle={styles.text}></Col>
-                    <Col data={["teste2"]} textStyle={styles.text}></Col>
-                    <Col data={["teste3"]} textStyle={styles.text}></Col>
-                    <Col data={["teste4"]} textStyle={styles.text}></Col>
-                    <Col data={["teste5"]} textStyle={styles.text}></Col>
-                    <Col data={["teste6"]} textStyle={styles.text}></Col>
-                  </TableWrapper>
-                  <TableWrapper style={{ flexDirection: 'row' }}>
-                    <Col data={["teste1"]} textStyle={styles.text}></Col>
-                    <Col data={["teste2"]} textStyle={styles.text}></Col>
-                    <Col data={["teste3"]} textStyle={styles.text}></Col>
-                    <Col data={["teste4"]} textStyle={styles.text}></Col>
-                    <Col data={["teste5"]} textStyle={styles.text}></Col>
-                    <Col data={["teste6"]} textStyle={styles.text}></Col>
-                  </TableWrapper>
-                  <TableWrapper style={{ flexDirection: 'row' }}>
-                    <Col data={["teste1"]} textStyle={styles.text}></Col>
-                    <Col data={["teste2"]} textStyle={styles.text}></Col>
-                    <Col data={["teste3"]} textStyle={styles.text}></Col>
-                    <Col data={["teste4"]} textStyle={styles.text}></Col>
-                    <Col data={["teste5"]} textStyle={styles.text}></Col>
-                    <Col data={["teste6"]} textStyle={styles.text}></Col>
-                  </TableWrapper>
-
+                  {tableItems.map((item) => {
+                    return (
+                      <TableWrapper style={{ flexDirection: 'row' }}>
+                        <Col data={[item.data]} textStyle={styles.text}></Col>
+                        <Col data={[item.usuario]} textStyle={styles.text}></Col>
+                        <Col data={[item.pontos]} textStyle={styles.text}></Col>
+                        <Col data={[item.produto]} textStyle={styles.text}></Col>
+                        <Col data={[item.transacao]} textStyle={styles.text}></Col>
+                        <Col data={[item.empresa]} textStyle={styles.text}></Col>
+                      </TableWrapper>
+                    )
+                  })}
                 </Table>
               </ScrollView>
             </View>
           </ScrollView>
 
-          {Products.map((item) => {
-            return (
-              <View style={{ flex: 1, borderBottomColor: 'red', borderBottomWidth: 2, marginHorizontal: 12, justifyContent: 'center' }} key={item.id}>
-                <Text numberOfLines={1} style={{ fontSize: 24, fontWeight: '400' }}>{item.nome}</Text>
-              </View>
-            )
-          })}
+          {
+            Products.map((item) => {
+              return (
+                <View style={{ flex: 1, borderBottomColor: 'red', borderBottomWidth: 2, marginHorizontal: 12, justifyContent: 'center' }} key={item.id}>
+                  <Text numberOfLines={1} style={{ fontSize: 24, fontWeight: '400' }}>{item.nome}</Text>
+                </View>
+              )
+            })
+          }
 
-          {Transactions.map((item) => {
-            return (
-              <View style={{ flex: 1, borderBottomColor: 'blue', borderBottomWidth: 2, marginHorizontal: 12, justifyContent: 'center' }} key={item.id}>
-                <Text numberOfLines={1} style={{ fontSize: 24, fontWeight: '400' }}>{item.data}</Text>
-              </View>
-            )
-          })}
+          {
+            Transactions.map((item) => {
+              return (
+                <View style={{ flex: 1, borderBottomColor: 'blue', borderBottomWidth: 2, marginHorizontal: 12, justifyContent: 'center' }} key={item.id}>
+                  <Text numberOfLines={1} style={{ fontSize: 24, fontWeight: '400' }}>{item.data}</Text>
+                </View>
+              )
+            })
+          }
 
-          {Users.map((item) => {
-            return (
-              <View style={{ flex: 1, borderBottomColor: 'yellow', borderBottomWidth: 2, marginHorizontal: 12, justifyContent: 'center' }} key={item.id}>
-                <Text numberOfLines={1} style={{ fontSize: 24, fontWeight: '400' }}>{item.nome}</Text>
-              </View>
-            )
-          })}
-        </ScrollView>
-      </View>
+          {
+            Users.map((item) => {
+              return (
+                <View style={{ flex: 1, borderBottomColor: 'yellow', borderBottomWidth: 2, marginHorizontal: 12, justifyContent: 'center' }} key={item.id}>
+                  <Text numberOfLines={1} style={{ fontSize: 24, fontWeight: '400' }}>{item.nome}</Text>
+                </View>
+              )
+            })
+          }
+        </ScrollView >
+      </View >
 
 
     </View >

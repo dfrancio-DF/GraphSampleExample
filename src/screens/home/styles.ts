@@ -75,18 +75,19 @@ export const styles = StyleSheet.create({
   titleTable: {
     textAlign: 'center',
     color: '#9C9B9B',
+    width: 200
   },
   textTable: {
     textAlign: 'center',
     color: '#9C9B9B',
   },
-  text: { width: 50, textAlign: 'center', },
+  text: { width: 200, textAlign: 'center', },
   rowButons: {
     flexDirection: "row",
     marginLeft: 20,
     justifyContent: 'space-evenly'
   },
-  head: { height: 30, width: 500, backgroundColor: '#f1f8ff' },
+  //head: { height: 30, width: 500, backgroundColor: '#f1f8ff' },
   dataWrapper: { marginTop: -1 },
 
 

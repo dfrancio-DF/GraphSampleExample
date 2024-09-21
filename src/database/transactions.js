@@ -52,7 +52,7 @@ export const Transactions =
         "produto_troca": "Gift Card R$ 50",
         "pontos_movimentados": -5000,
         "data": "2024-01-10",
-        "entidade_id": 6
+        "empresa_id": 6
       },
       {
         "id": 7,
@@ -87,7 +87,8 @@ export const Transactions =
         "usuario_id": 3,
         "pontos_movimentados": -20000,
         "data": "2024-01-20",
-        "valor_trocado": 1000.00
+        "valor_trocado": 1000.00,
+        "empresa_id": 5
       },
       {
         "id": 11,
@@ -114,7 +115,7 @@ export const Transactions =
         "produto_troca": "Produto X",
         "pontos_movimentados": -3000,
         "data": "2024-01-30",
-        "entidade_id": 6
+        "empresa_id": 6
       },
       {
         "id": 14,
@@ -176,7 +177,7 @@ export const Transactions =
         "produto_troca": "Produto Y",
         "pontos_movimentados": -4000,
         "data": "2024-02-10",
-        "entidade_id": 6
+        "empresa_id": 6
       },
       {
         "id": 21,
@@ -229,7 +230,7 @@ export const Transactions =
         "produto_troca": "Gift Card R$ 100",
         "pontos_movimentados": -10000,
         "data": "2024-02-16",
-        "entidade_id": 6
+        "empresa_id": 6
       }
     ]
 
